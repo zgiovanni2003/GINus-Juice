@@ -1,0 +1,225 @@
+/* Reset CSS generale */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+/* Stili per il carosello di immagini */
+#image-carousel {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    height: 200px; /* Altezza desiderata per il carosello */
+    position: relative;
+    margin-top: 20px;
+}
+
+#image-carousel .carousel-container {
+    display: flex;
+    transition: transform 0.5s ease; /* Transizione fluida per lo scorrimento */
+}
+
+#image-carousel img {
+    flex: 0 0 auto; /* Impedisce alle immagini di espandersi oltre la loro dimensione intrinseca */
+    width: auto; /* Larghezza automatica per adattarsi alla dimensione del contenuto */
+    height: 100%; /* Altezza pari all'altezza del carosello */
+    object-fit: cover; /* Riempi l'intera area senza distorsioni */
+    transition: transform 0.5s ease-in-out; /* Transizione per lo scorrimento fluido */
+}
+
+@media (min-width: 768px) {
+    /* Modifiche per schermi di larghezza superiore a 768px */
+    #image-carousel {
+        height: 250px; /* Altezza più alta per schermi più grandi */
+    }
+
+    #image-carousel img {
+        width: auto; /* Larghezza automatica per adattarsi alla dimensione del contenuto */
+        height: 100%; /* Altezza pari all'altezza del carosello */
+        margin-right: 10px; /* Margine tra le immagini */
+    }
+}
+
+/* Stili per l'overlay di sfocatura */
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Sfondo trasparente con sfocatura */
+    backdrop-filter: blur(5px); /* Applica sfocatura */
+    z-index: 999; /* Assicura che l'overlay sia sopra tutti gli altri elementi, tranne il popup */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Stili per il div di conferma età */
+#age-confirmation {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    text-align: center;
+    z-index: 1000; /* Assicura che il div sia visibile sopra tutti gli altri elementi */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* Aggiunge un'ombra per enfatizzare il popup */
+    position: fixed; /* Posizionamento fisso rispetto alla finestra del browser */
+    top: 50%; /* Posizione verticale al 50% della finestra del browser */
+    left: 50%; /* Posizione orizzontale al 50% della finestra del browser */
+    transform: translate(-50%, -50%); /* Per centrare il popup rispetto al suo centro */
+    display: none; /* Nasconde il popup all'avvio */
+}
+
+#age-confirmation h2 {
+    margin-top: 0;
+}
+
+#age-confirmation button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+#age-confirmation button:hover {
+    background-color: #0056b3;
+}
+
+/* Rimuovi sfocatura dal popup di conferma età */
+#age-confirmation.blur {
+    backdrop-filter: none; /* Rimuove la sfocatura sul popup */
+}
+
+/* Sfondo principale nero e testo bianco per il contenuto */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #000;
+    color: #fff;
+}
+
+
+/*hearder*/
+#navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    z-index: 1000;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+#navbar #logo {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#navbar #menu {
+    display: flex;
+}
+
+#navbar #menu a {
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+#navbar #menu a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+#navbar #icons a {
+    color: #f2f2f2;
+    text-decoration: none;
+    padding: 14px 16px;
+    font-size: 17px;
+}
+
+#navbar #icons a:hover {
+    color: #ddd;
+}
+
+
+/* Stili per la barra gialla di informazione sulla spedizione */
+#shipping-info {
+    background-color: yellow;
+    color: black;
+    text-align: center;
+    position: fixed;
+    top: 60px; /* Altezza del menu + margine top */
+    left: 0;
+    width: 100%;
+    z-index: 998; /* Assicura che sia sopra il footer e sotto il menu */
+    padding: 10px 0;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5); /* Ombra sopra la barra */
+}
+
+/* Stili per i link e i pulsanti disabilitati */
+.disabled {
+    pointer-events: none; /* Disabilita gli eventi di puntatore (cliccabilità) */
+    opacity: 0.5; /* Riduce l'opacità per evidenziare il fatto che sono disabilitati */
+}
+
+/* Stili per il footer */
+#footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+#main-content {
+    margin-top: 80px; /* Altezza del menu + spazio extra sopra il contenuto */
+}
+
+/* Stili per la sezione "Chi siamo?" */
+#about-us {
+    display: flex;
+    align-items: flex-start;
+    padding: 20px;
+    margin-top: 40px;
+}
+
+#about-us .description {
+    flex: 1;
+    max-width: 60%; /* Larghezza massima per il testo per lasciare spazio all'immagine */
+    margin-right: 20px; /* Margine a destra per separare l'immagine */
+}
+
+#about-us h1 {
+    text-align: left;
+    margin-bottom: 10px; /* Margine inferiore per separare il titolo dal testo */
+}
+
+#about-us h3 {
+    text-align: justify; /* Giustifica il testo per una migliore leggibilità */
+    margin-bottom: 20px; /* Margine inferiore per spaziare i paragrafi */
+}
+
+/* Stili per l'immagine */
+#about-us .image {
+    max-width: 30%; /* Larghezza massima desiderata per l'immagine */
+    text-align: right;
+}
+
+#about-us .image img {
+    width: 100%; /* Larghezza massima dell'immagine rispetto al suo contenitore */
+    height: auto;
+    display: block; /* Assicura che l'immagine sia visualizzata come blocco */
+    margin-top: 20px; /* Margine superiore per spaziare l'immagine dal testo */
+    margin-bottom: 20px; /* Margine inferiore per separare l'immagine dal contenuto sottostante */
+}

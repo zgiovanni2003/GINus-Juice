@@ -1,0 +1,152 @@
+/* Reset generale */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Arial', sans-serif;
+    background-color: #000; /* Colore di sfondo nero */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Contenitore della pagina */
+.page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #000; /* Colore di sfondo nero */
+}
+
+/* Container per la registrazione */
+.registration-container {
+    width: 300px; /* Larghezza della form */
+    max-height: 450px; /* Altezza massima */
+    padding: 20px; /* Padding interno */
+    background-color: rgba(255, 255, 255, 0.8); /* Colore di sfondo */
+    border: 1px solid #ccc; /* Bordo */
+    border-radius: 10px; /* Bordi arrotondati */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Ombra */
+    text-align: center; /* Allineamento testo */
+    background-size: cover; /* Dimensioni sfondo */
+    background-position: center; /* Posizione sfondo */
+    transition: background-image 1s ease-in-out; /* Transizione sfondo */
+    position: relative; /* Posizionamento */
+    z-index: 1; /* Z-index */
+    overflow: hidden; /* Overflow */
+}
+
+/* Animazione di fadeIn */
+.registration-container.loaded {
+    animation: fadeInBackground 1s ease-in-out forwards;
+}
+
+@keyframes fadeInBackground {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Form di registrazione */
+#registrationForm {
+    padding-top: 20px; /* Spaziatura superiore */
+}
+
+/* Stile label e input */
+label {
+    display: inline-block;
+    width: 100%;
+    text-align: left;
+    margin-bottom: 5px; /* Spaziatura inferiore */
+    color: #333; /* Colore testo */
+    font-weight: bold; /* Grassetto */
+}
+
+input[type="text"], input[type="password"] {
+    width: calc(100% - 20px); /* Larghezza input */
+    padding: 10px; /* Padding interno */
+    margin: 5px auto; /* Margine */
+    border: 1px solid #ccc; /* Bordo */
+    border-radius: 5px; /* Bordi arrotondati */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombra */
+    font-size: 16px; /* Dimensione testo */
+    transition: box-shadow 0.3s, border-color 0.3s; /* Transizioni */
+}
+
+/* Focus sugli input */
+input[type="text"]:focus, input[type="password"]:focus {
+    box-shadow: 0 0 15px rgba(70, 130, 180, 0.5); /* Ombra focus */
+    border-color: #4682B4; /* Colore bordo focus */
+}
+
+/* Stile pulsante submit */
+input[type="submit"] {
+    width: 100%; /* Larghezza pulsante */
+    padding: 15px; /* Padding interno */
+    background-color: #4CAF50; /* Colore sfondo */
+    color: white; /* Colore testo */
+    border: none; /* Nessun bordo */
+    border-radius: 5px; /* Bordi arrotondati */
+    cursor: pointer; /* Puntatore */
+    font-size: 18px; /* Dimensione testo */
+    transition: background-color 0.3s; /* Transizione sfondo */
+}
+
+/* Hover sul pulsante submit */
+input[type="submit"]:hover {
+    background-color: #45a049; /* Colore sfondo hover */
+}
+
+/* Stile legenda */
+legend {
+    font-size: 2em; /* Dimensione testo */
+    margin-bottom: 20px; /* Spaziatura inferiore */
+    text-align: center; /* Allineamento testo */
+    color: #333; /* Colore testo */
+}
+
+/* Media Queries */
+
+/* Tablet */
+@media (max-width: 768px) {
+    .registration-container {
+        width: 80%;
+        max-height: none; /* Rimuove l'altezza massima */
+        padding: 15px;
+    }
+
+    input[type="text"], input[type="password"] {
+        width: calc(100% - 20px);
+    }
+
+    input[type="submit"] {
+        font-size: 16px;
+    }
+
+    legend {
+        font-size: 1.5em;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .registration-container {
+        width: 100%;
+        max-height: none; /* Rimuove l'altezza massima */
+        padding: 10px;
+    }
+
+    input[type="text"], input[type="password"] {
+        width: calc(100% - 20px);
+    }
+
+    input[type="submit"] {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    legend {
+        font-size: 1.2em;
+    }
+}
