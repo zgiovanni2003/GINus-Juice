@@ -35,8 +35,9 @@
         </form>
 
         <!-- Bottone per acquistare (per ora fittizio) -->
-        <form action="compra" method="post">
+        <form action="CarrelloServlet" method="post">
             <input type="hidden" name="id" value="<%= prodotto.getId() %>">
+            <input type="hidden" name="action" value="aggiungi">
             <button type="submit">Compra</button>
         </form>
     </li>

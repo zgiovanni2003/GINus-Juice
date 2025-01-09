@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.Objects;
+
 public class Prodotto {
 
     private int id;
@@ -62,5 +64,18 @@ public class Prodotto {
                 ", prezzo=" + prezzo +
                 ", descrizione='" + descrizione + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Prodotto prodotto = (Prodotto) o;
+        return id == prodotto.id; // Confronta solo l'id
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id); // Hash basato sull'id
     }
 }
