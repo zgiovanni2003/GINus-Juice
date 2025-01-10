@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UtenteDAO {
 
@@ -94,6 +96,84 @@ public class UtenteDAO {
     protected UtenteDAO getUtenteDAO() {
         return new UtenteDAO();
     }
+    // Metodo in UtenteDAO per rimuovere un utente dal database
+    public boolean rimuoviUtente(String email) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = ConnectionPool.getConnection();
+            String query = "DELETE FROM Utente WHERE email = ?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, email);
+
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                if (preparedStatement != null) preparedStatement.close();
+                if (connection != null) ConnectionPool.releaseConnection(connection);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public boolean aggiornaRuolo(String email, String nuovoRuolo) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+
+        try {
+            conn = ConnectionPool.getConnection();
+            String query = "UPDATE Utente SET ruolo = ? WHERE email = ?";
+            ps = conn.prepareStatement(query);
+            ps.setString(1, nuovoRuolo);
+            ps.setString(2, email);
+
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                if (ps != null) ps.close();
+                if (conn != null) ConnectionPool.releaseConnection(conn);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    public List<Utente> getAllUtenti() {
+        List<Utente> utenti = new ArrayList<>();
+        String query = "SELECT * FROM Utente";
+
+        try (Connection conn = ConnectionPool.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Utente utente = new Utente();
+                utente.setEmail(rs.getString("email"));
+                utente.setNome(rs.getString("nome"));
+                utente.setCognome(rs.getString("cognome"));
+                utente.setPassword(rs.getString("password_d"));
+                utente.setStato(rs.getBoolean("stato"));
+                utente.setRuolo(rs.getString("ruolo"));
+                utenti.add(utente);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return utenti;
+    }
+
 
 }
 
