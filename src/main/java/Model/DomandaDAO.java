@@ -6,6 +6,8 @@ import java.util.List;
 
 public class DomandaDAO {
 
+
+
     public boolean inserisciDomanda(String messaggio, String emailUtente) {
         String query = "INSERT INTO domanda (corpo_messaggio, email_utente) VALUES (?, ?)";
         try (Connection connection = ConnectionPool.getConnection();

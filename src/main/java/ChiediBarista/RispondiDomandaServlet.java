@@ -12,6 +12,18 @@ import java.io.IOException;
 
 @WebServlet("/RispondiDomandaServlet")
 public class RispondiDomandaServlet extends HttpServlet {
+    //ho aggiunto questo rigo SD
+    private RispostaDAO rispostaDAO;
+//HO AGGIUNTO QUESTA FUNZIONE SD
+    // Costruttore di default
+    public RispondiDomandaServlet() {
+        this.rispostaDAO = new RispostaDAO();
+    }
+//HO aggiunto questa funzione sd
+    // Costruttore per test (consente l'iniezione di un mock)
+    public RispondiDomandaServlet(RispostaDAO rispostaDAO) {
+        this.rispostaDAO = rispostaDAO;
+    }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, IOException {
         int idDomanda = Integer.parseInt(request.getParameter("id_domanda"));
@@ -19,7 +31,11 @@ public class RispondiDomandaServlet extends HttpServlet {
         Utente barista = (Utente) request.getSession().getAttribute("utente");
         String emailBarista = barista.getEmail();
 
-        RispostaDAO rispostaDAO = new RispostaDAO();
+
+        //ho commentato questa riga di codice
+       // RispostaDAO rispostaDAO = new RispostaDAO();
+
+
         if (rispostaDAO.inserisciRisposta(risposta, idDomanda, emailBarista)) {
             response.sendRedirect("VisualizzaDomandeServlet");
         } else {
@@ -27,4 +43,3 @@ public class RispondiDomandaServlet extends HttpServlet {
         }
     }
 }
-

@@ -24,7 +24,12 @@ public class AcquistoServlet extends HttpServlet {
             return;
         }
 
+
         String emailUtente = (String) session.getAttribute("email");
+        if (emailUtente == null || emailUtente.isEmpty()) {
+            response.sendRedirect("Login.jsp");
+            return;
+        }
         emailUtente="mario.rossi@email.com";
         String prodottiComprati = carrello.getProdotti().toString(); // Convertilo come necessario per il tuo database
         double totale = carrello.getProdotti().entrySet().stream()

@@ -70,5 +70,30 @@ public class UtenteDAO {
             }
         }
     }
+    public void deleteUserByEmail(String email) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+
+        try {
+            conn = ConnectionPool.getConnection();
+            String query = "DELETE FROM Utente WHERE email = ?";
+            ps = conn.prepareStatement(query);
+            ps.setString(1, email);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (ps != null) ps.close();
+                if (conn != null) ConnectionPool.releaseConnection(conn);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    protected UtenteDAO getUtenteDAO() {
+        return new UtenteDAO();
+    }
+
 }
 

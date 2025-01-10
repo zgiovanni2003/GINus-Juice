@@ -1,6 +1,7 @@
 package Model;
 
 
+import java.util.Objects;
 
 public class Utente {
 
@@ -75,6 +76,24 @@ public class Utente {
 
     public void setRuolo(String ruolo) {
         this.ruolo = ruolo;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Utente utente = (Utente) o;
+        return stato == utente.stato &&
+                Objects.equals(email, utente.email) &&
+                Objects.equals(nome, utente.nome) &&
+                Objects.equals(cognome, utente.cognome) &&
+                Objects.equals(password, utente.password) &&
+                Objects.equals(ruolo, utente.ruolo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email, nome, cognome, password, stato, ruolo);
     }
 }
 

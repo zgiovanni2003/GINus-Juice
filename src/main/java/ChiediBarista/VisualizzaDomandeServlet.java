@@ -13,9 +13,18 @@ import java.util.List;
 
 @WebServlet("/VisualizzaDomandeServlet")
 public class VisualizzaDomandeServlet extends HttpServlet {
+//*************************************************
+    //mod
+     protected DomandaDAO createDomandaDAO() {
+    return new DomandaDAO();
+}
+    //***************************************************++
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, IOException {
-        DomandaDAO domandaDAO = new DomandaDAO();
+       //*********************************************************+
+        //DomandaDAO domandaDAO = new DomandaDAO();
+        DomandaDAO domandaDAO = createDomandaDAO();
+        //****************************************************
         List<Domanda> domande = domandaDAO.getDomandeNonRisposte();
 
         request.setAttribute("domande", domande);

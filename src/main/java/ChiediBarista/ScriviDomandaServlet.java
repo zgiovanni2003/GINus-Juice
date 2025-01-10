@@ -12,12 +12,39 @@ import java.io.IOException;
 
 @WebServlet("/ScriviDomandaServlet")
 public class ScriviDomandaServlet extends HttpServlet {
+   //**************************************************
+    //aggiunta di sd
+   private DomandaDAO domandaDAO;
+
+    public ScriviDomandaServlet() {
+        this.domandaDAO = new DomandaDAO();
+    }
+
+    public ScriviDomandaServlet(DomandaDAO domandaDAO) {
+        this.domandaDAO = domandaDAO;
+    }
+//*************************************************************
+
+
+
+
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, IOException {
+
+
+
+
         String messaggio = request.getParameter("messaggio");
         Utente u = (Utente) request.getSession().getAttribute("utente");
+        //*************************************************************
+        if (u == null)  { response.sendRedirect("login.jsp"); return;}
+        //*************************************************************
         String emailUtente = u.getEmail();
-        DomandaDAO domandaDAO = new DomandaDAO();
+        //************************************************************+
+        //Rigo commentato da sd
+        //DomandaDAO domandaDAO = new DomandaDAO();
+        //**************************************************************
         if (domandaDAO.inserisciDomanda(messaggio, emailUtente)) {
             response.sendRedirect("index.jsp?success=domanda");
         } else {

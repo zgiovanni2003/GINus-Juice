@@ -17,7 +17,11 @@ import java.util.List;
 public class VisualizzaRisposteServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-
+   //***********************************************+
+    protected RispostaDAO createRispostaDAO() {
+        return new RispostaDAO();
+    }
+    //********************************************************
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Recupera l'email dell'utente dalla sessione
@@ -30,7 +34,10 @@ public class VisualizzaRisposteServlet extends HttpServlet {
         }
 
         // Recupera le risposte dal database tramite il DAO
-        RispostaDAO rispostaDAO = new RispostaDAO();
+      //*****************************************************+
+       // RispostaDAO rispostaDAO = new RispostaDAO();
+        RispostaDAO rispostaDAO = createRispostaDAO();
+        //****************************************************
         List<Risposta> risposte = rispostaDAO.getRisposteByEmailUtente(email);
 
         // Passa la lista di risposte alla pagina JSP
