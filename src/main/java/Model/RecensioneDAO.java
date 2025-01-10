@@ -33,4 +33,23 @@ public class RecensioneDAO {
 
         return recensioni;
     }
+
+    public boolean inserisciRecensione(String emailUtente, int idProdotto, String corpoRecensione) {
+        String query = "INSERT INTO recensione (email_ut, id_prod, corpo_recensione, data_rec) VALUES (?, ?, ?, NOW())";
+
+        try (Connection conn = ConnectionPool.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setString(1, emailUtente);
+            ps.setInt(2, idProdotto);
+            ps.setString(3, corpoRecensione);
+
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
 }

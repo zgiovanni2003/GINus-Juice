@@ -39,6 +39,14 @@
   }
 %>
 
+<h2>Aggiungi una Recensione</h2>
+<form action="AggiungiRecensioneServlet" method="post">
+  <input type="hidden" name="idProdotto" value="${prodotto.id}" />
+  <label for="recensione">Scrivi la tua recensione:</label><br>
+  <textarea name="corpoRecensione" id="recensione" rows="4" cols="50" required></textarea><br>
+  <input type="submit" value="Invia Recensione" />
+</form>
+
 <a href="Shop.jsp">Torna allo Shop</a>
 
 </body>
