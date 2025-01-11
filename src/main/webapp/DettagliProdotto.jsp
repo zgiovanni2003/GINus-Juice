@@ -9,46 +9,56 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dettagli Prodotto</title>
+  <link rel="stylesheet" href="styles/styleDettagliProdotto.css">
 </head>
 <body>
 
-<h1>${prodotto.nome}</h1>
-<p>Prezzo: €${prodotto.prezzo}</p>
-<p>Descrizione: ${prodotto.descrizione}</p>
-<p>Quantità Disponibile: ${prodotto.quantita}</p> <!-- Aggiunta della quantità -->
+<div class="product-container">
+  <div class="product-image">
+    <img src="images/${prodotto.nome}.jpg" alt="${prodotto.nome}">
+  </div>
+  <div class="product-details">
+    <h1>${prodotto.nome}</h1>
+    <p class="price">Prezzo: €${prodotto.prezzo}</p>
+    <p class="description">Descrizione: ${prodotto.descrizione}</p>
+    <p class="quantity">Quantità Disponibile: ${prodotto.quantita}</p> <!-- Aggiunta della quantità -->
+  </div>
+</div>
 
-<h3>Recensioni</h3>
+<div class="reviews-container">
+  <h3>Recensioni</h3>
+  <%
+    List<Recensione> recensioni = (List<Recensione>) request.getAttribute("recensioni");
+    if (recensioni != null && !recensioni.isEmpty()) {
+  %>
+  <ul class="reviews-list">
+    <% for (Recensione recensione : recensioni) { %>
+    <li class="review-item">
+      <strong><%= recensione.getEmailUtente() %></strong>: <%= recensione.getCorpoRecensione() %> <br>
+      <span class="review-date">Data: <%= recensione.getDataRecensione()%></span>
+    </li>
+    <% } %>
+  </ul>
+  <%
+  } else {
+  %>
+  <p class="no-reviews">Non ci sono recensioni per questo prodotto.</p>
+  <%
+    }
+  %>
+</div>
 
-<%
-  List<Recensione> recensioni = (List<Recensione>) request.getAttribute("recensioni");
+<div class="add-review">
+  <h2>Aggiungi una Recensione</h2>
+  <form action="AggiungiRecensioneServlet" method="post">
+    <input type="hidden" name="idProdotto" value="${prodotto.id}" />
+    <label for="recensione">Scrivi la tua recensione:</label><br>
+    <textarea name="corpoRecensione" id="recensione" rows="4" cols="50" required></textarea><br>
+    <input type="submit" value="Invia Recensione" class="submit-button" />
+  </form>
+</div>
 
-  if (recensioni != null && !recensioni.isEmpty()) {
-%>
-<ul>
-  <% for (Recensione recensione : recensioni) { %>
-  <li>
-    <strong><%= recensione.getEmailUtente() %></strong>: <%= recensione.getCorpoRecensione() %> <br>
-    Data: <%= recensione.getDataRecensione()%>
-  </li>
-  <% } %>
-</ul>
-<%
-} else {
-%>
-<p>Non ci sono recensioni per questo prodotto.</p>
-<%
-  }
-%>
-
-<h2>Aggiungi una Recensione</h2>
-<form action="AggiungiRecensioneServlet" method="post">
-  <input type="hidden" name="idProdotto" value="${prodotto.id}" />
-  <label for="recensione">Scrivi la tua recensione:</label><br>
-  <textarea name="corpoRecensione" id="recensione" rows="4" cols="50" required></textarea><br>
-  <input type="submit" value="Invia Recensione" />
-</form>
-
-<a href="Shop.jsp">Torna allo Shop</a>
+<a href="Shop.jsp" class="back-to-shop">Torna allo Shop</a>
 
 </body>
 </html>

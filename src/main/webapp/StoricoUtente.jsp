@@ -11,8 +11,10 @@
 
 <%
     // Recupero degli acquisti dal request
-    List<Acquisto> acquisti = (List<Acquisto>) request.getAttribute("acquisti");
+    List<Acquisto> acquisti = (List<Acquisto>) request.getAttribute("storico");
+    System.out.println(acquisti);
     String emailUtente = request.getParameter("email");
+    System.out.println(emailUtente);
 %>
 
 <h2>Utente: <%= emailUtente %></h2>
@@ -30,6 +32,7 @@
     <%
         if (acquisti != null && !acquisti.isEmpty()) {
             for (Acquisto acquisto : acquisti) {
+                System.out.println(acquisto);
     %>
     <tr>
         <td><%= acquisto.getId() %></td>

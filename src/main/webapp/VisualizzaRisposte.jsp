@@ -5,40 +5,12 @@
   List<Risposta> risposte = (List<Risposta>) request.getAttribute("risposte");
 %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Le Tue Risposte</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background-color: #f4f4f9;
-    }
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    h1 {
-      text-align: center;
-      color: #333;
-    }
-    .risposta {
-      margin-bottom: 15px;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      background-color: #f9f9f9;
-    }
-    .risposta p {
-      margin: 5px 0;
-    }
-  </style>
+  <link rel="stylesheet" href="styles/styleRisposte.css">
 </head>
 <body>
 <div class="container">
@@ -47,11 +19,11 @@
   <% for (Risposta risposta : risposte) { %>
   <div class="risposta">
     <p><strong>Risposta:</strong> <%= risposta.getMessaggio() %></p>
-    <p><small><em>Risposto da: <%= risposta.getEmailBarista() %></em></small></p>
+    <p class="details"><small><em>Risposto da: <%= risposta.getEmailBarista() %></em></small></p>
   </div>
   <% } %>
   <% } else { %>
-  <p>Non hai ricevuto alcuna risposta.</p>
+  <p class="no-responses">Non hai ricevuto alcuna risposta.</p>
   <% } %>
 </div>
 </body>
