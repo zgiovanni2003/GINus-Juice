@@ -15,6 +15,7 @@
 <h1>${prodotto.nome}</h1>
 <p>Prezzo: €${prodotto.prezzo}</p>
 <p>Descrizione: ${prodotto.descrizione}</p>
+<p>Quantità Disponibile: ${prodotto.quantita}</p> <!-- Aggiunta della quantità -->
 
 <h3>Recensioni</h3>
 

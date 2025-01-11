@@ -30,6 +30,10 @@
     <label for="descrizione">Descrizione:</label><br>
     <textarea id="descrizione" name="descrizione" rows="4" cols="50" required><%= prodotto.getDescrizione() %></textarea><br><br>
 
+    <!-- Nuovo campo per la quantità -->
+    <label for="quantita">Quantità:</label><br>
+    <input type="number" id="quantita" name="quantita" min="0" value="<%= prodotto.getQuantita() %>" required><br><br>
+
     <label for="immagine">Immagine del prodotto:</label><br>
     <input type="file" id="immagine" name="immagine"><br><br>
 

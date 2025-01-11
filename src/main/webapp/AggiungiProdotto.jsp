@@ -1,4 +1,3 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +14,9 @@
 
     <label for="prezzo">Prezzo:</label>
     <input type="number" step="0.01" id="prezzo" name="prezzo" required><br><br>
+
+    <label for="quantita">Quantità:</label>
+    <input type="number" id="quantita" name="quantita" min="0" required><br><br>
 
     <label for="immagine">Immagine:</label>
     <input type="file" id="immagine" name="immagine" accept="image/*" required><br><br>

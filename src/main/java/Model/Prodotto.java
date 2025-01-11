@@ -8,16 +8,18 @@ public class Prodotto {
     private String nome;
     private double prezzo;
     private String descrizione;
+    private int quantita; // Nuovo campo per la quantità
 
     // Costruttore vuoto
     public Prodotto() {}
 
     // Costruttore con parametri
-    public Prodotto(int id, String nome, double prezzo, String descrizione) {
+    public Prodotto(int id, String nome, double prezzo, String descrizione, int quantita) {
         this.id = id;
         this.nome = nome;
         this.prezzo = prezzo;
         this.descrizione = descrizione;
+        this.quantita = quantita;
     }
 
     // Getter e Setter per 'id'
@@ -56,6 +58,15 @@ public class Prodotto {
         this.descrizione = descrizione;
     }
 
+    // Getter e Setter per 'quantita'
+    public int getQuantita() {
+        return quantita;
+    }
+
+    public void setQuantita(int quantita) {
+        this.quantita = quantita;
+    }
+
     @Override
     public String toString() {
         return "Prodotto{" +
@@ -63,6 +74,7 @@ public class Prodotto {
                 ", nome='" + nome + '\'' +
                 ", prezzo=" + prezzo +
                 ", descrizione='" + descrizione + '\'' +
+                ", quantita=" + quantita +
                 '}';
     }
 
@@ -71,11 +83,11 @@ public class Prodotto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Prodotto prodotto = (Prodotto) o;
-        return id == prodotto.id; // Confronta solo l'id
+        return id == prodotto.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id); // Hash basato sull'id
+        return Objects.hash(id);
     }
 }

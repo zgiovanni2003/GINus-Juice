@@ -25,35 +25,26 @@ public class AggiungiProdottoServlet extends HttpServlet {
             String nome = request.getParameter("nome");
             String descrizione = request.getParameter("descrizione");
             double prezzo = Double.parseDouble(request.getParameter("prezzo"));
+            int quantita = Integer.parseInt(request.getParameter("quantita")); // Recupero quantità
 
             System.out.println("Nome prodotto: " + nome);
             System.out.println("Descrizione prodotto: " + descrizione);
             System.out.println("Prezzo prodotto: " + prezzo);
+            System.out.println("Quantità prodotto: " + quantita);
 
             // Percorso della cartella 'images'
             String uploadDir = getServletContext().getRealPath("/") + "../../src/main/webapp/images/";
-            System.out.println("Percorso della cartella 'images': " + uploadDir);
 
             // Creazione della cartella 'images' se non esiste
             File uploadFolder = new File(uploadDir);
             if (!uploadFolder.exists()) {
-                boolean isCreated = uploadFolder.mkdir();
-                System.out.println("Cartella 'images' creata: " + isCreated);
-            } else {
-                System.out.println("La cartella 'images' esiste già.");
+                uploadFolder.mkdir();
             }
 
             // Recupero del file immagine
             Part filePart = request.getPart("immagine");
-            System.out.println("File immagine recuperato: " + (filePart != null));
-
-            // Costruzione del nome del file
             String fileName = nome.replaceAll("\\s+", "_") + ".jpg";
-            System.out.println("Nome del file immagine: " + fileName);
-
-            // Percorso completo del file
             String filePath = uploadDir + File.separator + fileName;
-            System.out.println("Percorso completo del file immagine: " + filePath);
 
             // Scrittura del file nella cartella 'images'
             filePart.write(filePath);
@@ -64,6 +55,7 @@ public class AggiungiProdottoServlet extends HttpServlet {
             prodotto.setNome(nome);
             prodotto.setDescrizione(descrizione);
             prodotto.setPrezzo(prezzo);
+            prodotto.setQuantita(quantita); // Imposta quantità
 
             ProdottoDAO prodottoDAO = new ProdottoDAO();
             prodottoDAO.aggiungiProdotto(prodotto);

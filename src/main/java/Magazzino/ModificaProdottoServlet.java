@@ -28,12 +28,14 @@ public class ModificaProdottoServlet extends HttpServlet {
             String nome = request.getParameter("nome");
             double prezzo = Double.parseDouble(request.getParameter("prezzo"));
             String descrizione = request.getParameter("descrizione");
+            int quantita = Integer.parseInt(request.getParameter("quantita")); // Nuovo parametro per la quantità
 
             // Debug: Stampa i parametri
             System.out.println("ID prodotto: " + id);
             System.out.println("Nome prodotto: " + nome);
             System.out.println("Prezzo prodotto: " + prezzo);
             System.out.println("Descrizione prodotto: " + descrizione);
+            System.out.println("Quantità prodotto: " + quantita);
 
             // Recupera la parte dell'immagine
             Part immaginePart = request.getPart("immagine");
@@ -55,47 +57,38 @@ public class ModificaProdottoServlet extends HttpServlet {
 
                 // Se il nome del prodotto è cambiato e l'immagine esistente è diversa, rinominiamo l'immagine
                 if (oldImageName != null && !oldImageName.equals(nuovoNomeImmagine)) {
-                    // Rimuoviamo la vecchia immagine
                     Files.deleteIfExists(Paths.get(uploadDir, oldImageName));
                     System.out.println("Vecchia immagine eliminata: " + oldImageName);
                 }
 
-                // Scriviamo la nuova immagine nella cartella
                 immaginePart.write(immagineFile.getAbsolutePath());
                 System.out.println("Nuova immagine scritta: " + immagineFile.getAbsolutePath());
-            } else {
-                // Se non viene fornita una nuova immagine, dobbiamo rinominare l'immagine esistente
-                if (oldImageName != null) {
-                    // Rinomina l'immagine esistente con il nuovo nome del prodotto
-                    String nuovoNomeFileImmagine = nome + ".jpg";
-                    File oldImageFile = new File(uploadDir, oldImageName);
-                    File newImageFile = new File(uploadDir, nuovoNomeFileImmagine);
+            } else if (oldImageName != null) {
+                String nuovoNomeFileImmagine = nome + ".jpg";
+                File oldImageFile = new File(uploadDir, oldImageName);
+                File newImageFile = new File(uploadDir, nuovoNomeFileImmagine);
 
-                    // Debug: Rinomina il file immagine
-                    System.out.println("Vecchio nome immagine: " + oldImageFile.getName());
-                    System.out.println("Nuovo nome immagine: " + newImageFile.getName());
+                System.out.println("Vecchio nome immagine: " + oldImageFile.getName());
+                System.out.println("Nuovo nome immagine: " + newImageFile.getName());
 
-                    // Rinomina il file immagine
-                    if (oldImageFile.exists()) {
-                        boolean rinominato = oldImageFile.renameTo(newImageFile);
-                        if (rinominato) {
-                            System.out.println("Immagine rinominata con successo");
-                        } else {
-                            System.out.println("Errore durante il rinominare l'immagine");
-                        }
+                if (oldImageFile.exists()) {
+                    boolean rinominato = oldImageFile.renameTo(newImageFile);
+                    if (rinominato) {
+                        System.out.println("Immagine rinominata con successo");
                     } else {
-                        System.out.println("Errore: il file immagine " + oldImageName + " non esiste.");
+                        System.out.println("Errore durante il rinominare l'immagine");
                     }
-
-                    nuovoNomeImmagine = nuovoNomeFileImmagine;  // Impostiamo il nuovo nome per l'immagine
+                } else {
+                    System.out.println("Errore: il file immagine " + oldImageName + " non esiste.");
                 }
+
+                nuovoNomeImmagine = nuovoNomeFileImmagine;
             }
 
-            // Aggiorna il prodotto nel database (senza toccare l'immagine)
+            // Aggiorna il prodotto nel database
             ProdottoDAO prodottoDAO = new ProdottoDAO();
-            boolean aggiornato = prodottoDAO.updateProdotto(new Prodotto(id, nome, prezzo, descrizione));
+            boolean aggiornato = prodottoDAO.updateProdotto(new Prodotto(id, nome, prezzo, descrizione, quantita)); // Aggiornato con la quantità
 
-            // Debug: Verifica se il prodotto è stato aggiornato
             System.out.println("Prodotto aggiornato nel database: " + aggiornato);
 
             if (aggiornato) {
@@ -107,6 +100,7 @@ public class ModificaProdottoServlet extends HttpServlet {
                             p.setNome(nome);
                             p.setPrezzo(prezzo);
                             p.setDescrizione(descrizione);
+                            p.setQuantita(quantita); // Aggiornato con la quantità
                         });
 
                 getServletContext().setAttribute("prodotti", prodottoSingleton.getProdotti());
