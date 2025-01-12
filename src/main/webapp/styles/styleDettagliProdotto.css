@@ -99,6 +99,27 @@ textarea {
     border-radius: 5px;
 }
 
+/* Pulsante Compra */
+.buy-button {
+    background-color: #4caf50; /* Verde */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2em;
+    display: block;
+    margin: 20px auto; /* Centro e spaziatura */
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.buy-button:hover {
+    background-color: #45a049; /* Verde più scuro */
+    transform: scale(1.05); /* Ingrandimento leggero */
+}
+
+
 .submit-button {
     background-color: #ff4500;
     color: white;

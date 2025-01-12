@@ -46,9 +46,9 @@ public class ScriviDomandaServlet extends HttpServlet {
         //DomandaDAO domandaDAO = new DomandaDAO();
         //**************************************************************
         if (domandaDAO.inserisciDomanda(messaggio, emailUtente)) {
-            response.sendRedirect("index.jsp?success=domanda");
+            response.sendRedirect("ChiediAlBarista.jsp?success=domanda");
         } else {
-            response.sendRedirect("index.jsp?error=domanda");
+            response.sendRedirect("ChiediAlBarista.jsp?error=domanda");
         }
     }
 }

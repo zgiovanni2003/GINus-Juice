@@ -21,9 +21,19 @@ public class RegistrazioneControl extends HttpServlet {
         String cognome = request.getParameter("cognome");
         String password = request.getParameter("password_hash");
 
+
+
         // Creazione di un oggetto UtenteDAO per la gestione del database
         UtenteDAO utenteDAO = new UtenteDAO();
         boolean isRegistered = false;
+
+        if (utenteDAO.userExists(email)) { // Metodo che verifica se l'utente esiste
+            request.setAttribute("errore", "Email già esistente.");
+            request.setAttribute("emailEsistente", true); // Attributo specifico per il popup
+            request.getRequestDispatcher("/Registrazione.jsp").forward(request, response);
+            return; // Interrompe l'esecuzione
+        }
+
 
         // Controllo che i dati non siano vuoti e che l'utente non esista già
         if (email != null && !email.isEmpty() && nome != null && !nome.isEmpty() && cognome != null && !cognome.isEmpty() && password != null && !password.isEmpty()) {

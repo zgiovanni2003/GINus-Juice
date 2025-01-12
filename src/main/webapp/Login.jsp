@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Login - GINusJOI</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/styleLogin.css">
+    <link rel="stylesheet" type="text/css" href="styles/styleLogin.css">
     <script src="${pageContext.request.contextPath}/scripts/scriptLogin.js" defer></script>
 </head>
 <body>
-<%@ include file="Fragment/herdershop.jsp" %>
+
 
 <div class="page-container">
     <div class="login-container">
@@ -24,10 +24,11 @@
                 <input type="submit" value="Accedi">
             </fieldset>
         </form>
+        <a href="Registrazione.jsp">registrati</a>
     </div>
 </div>
 
-<%@ include file="Fragment/footer.jsp" %>
+
 
 
 </body>

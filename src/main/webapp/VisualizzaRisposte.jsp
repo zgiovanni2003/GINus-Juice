@@ -26,5 +26,6 @@
   <p class="no-responses">Non hai ricevuto alcuna risposta.</p>
   <% } %>
 </div>
+
 </body>
 </html>

@@ -13,11 +13,23 @@
 </head>
 <body>
 <%@ include file="Fragment/hearder.jsp" %>
+
 <h1>Il tuo Carrello</h1>
 
 <%
     Carrello carrello = (Carrello) session.getAttribute("carrello");
+    String erroreCarrello = (String) session.getAttribute("erroreCarrello");
+    if (erroreCarrello != null) {
+%>
+<div class="error-message">
+    <p><%= erroreCarrello %></p>
+</div>
+<%
+        session.removeAttribute("erroreCarrello");
+    }
+%>
 
+<%
     if (carrello == null || carrello.getProdotti().isEmpty()) {
 %>
 <p class="empty-cart-message">Il tuo carrello è vuoto.</p>
@@ -34,24 +46,20 @@
         totaleCarrello += prezzoTotale;
 %>
 <div class="product-item">
-    <!-- Aggiunta immagine del prodotto -->
     <div class="product-image">
-        <img src="images/<%= prodotto.getNome()%>.jpg"
+        <img src="images/<%= prodotto.getNome() %>.jpg"
              alt="<%= prodotto.getNome() %>">
     </div>
     <p><strong>Prodotto:</strong> <%= prodotto.getNome() %></p>
-    <p><strong>Prezzo unitario:</strong> €<%= prodotto.getPrezzo() %></p>
+    <p><strong>Prezzo unitario:</strong> <%= prodotto.getPrezzo() %></p>
     <p><strong>Quantità:</strong> <%= quantita %></p>
-    <p><strong>Prezzo totale:</strong> €<%= prezzoTotale %></p>
+    <p><strong>Prezzo totale:</strong> <%= prezzoTotale %></p>
     <div class="action-buttons">
-        <!-- Aumenta Quantità -->
         <form action="CarrelloServlet" method="post" class="inline-form">
             <input type="hidden" name="id" value="<%= prodotto.getId() %>">
             <input type="hidden" name="action" value="aggiungi">
             <button type="submit" class="button add-button">Aggiungi</button>
         </form>
-
-        <!-- Diminuisci Quantità -->
         <form action="CarrelloServlet" method="post" class="inline-form">
             <input type="hidden" name="id" value="<%= prodotto.getId() %>">
             <input type="hidden" name="action" value="diminuisci">

@@ -10,13 +10,14 @@
     <link rel="stylesheet" href="styles/styleMagazzino.css">
 </head>
 <body>
+<%@ include file="Fragment/hearder.jsp" %>
 
 <%
     // Recupera l'utente dalla sessione
-    Utente u = (Utente) session.getAttribute("utente");
+    Utente ut = (Utente) session.getAttribute("utente");
 
     // Controlla se l'utente esiste e ha il ruolo richiesto
-    if (u == null || u.getRuolo() == null || !u.getRuolo().equals("magazziniere")) {
+    if (ut == null || ut.getRuolo() == null || !ut.getRuolo().equals("magazziniere")) {
         response.sendRedirect("AccessoNegato.jsp");
         return;
     }

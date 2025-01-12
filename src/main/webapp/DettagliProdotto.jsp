@@ -19,9 +19,15 @@
   </div>
   <div class="product-details">
     <h1>${prodotto.nome}</h1>
-    <p class="price">Prezzo: €${prodotto.prezzo}</p>
+    <p class="price">Prezzo: ${prodotto.prezzo}</p>
     <p class="description">Descrizione: ${prodotto.descrizione}</p>
-    <p class="quantity">Quantità Disponibile: ${prodotto.quantita}</p> <!-- Aggiunta della quantità -->
+    <p class="quantity">Quantita' Disponibile: ${prodotto.quantita}</p> <!-- Aggiunta della quantità -->
+    <!-- Pulsante Compra -->
+    <form action="CarrelloServlet" method="post">
+      <input type="hidden" name="id" value="${prodotto.id}">
+      <input type="hidden" name="action" value="aggiungi">
+      <button type="submit" class="button buy-button">Compra</button>
+    </form>
   </div>
 </div>
 

@@ -1,4 +1,5 @@
 <%@ page import="java.util.Date" %>
+<%@ page import="Model.Utente" %>
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -8,6 +9,16 @@
   <link rel="stylesheet" href="styles/styleMetodiPagamento.css">
 </head>
 <body>
+<%
+  // Recupera l'utente dalla sessione
+  Utente ut = (Utente) session.getAttribute("utente");
+
+  // Controlla se l'utente esiste e ha il ruolo richiesto
+  if (ut == null ) {
+    response.sendRedirect("Login.jsp");
+    return;
+  }
+%>
 
 <div class="payment-container">
   <h1>Inserisci i dettagli di pagamento</h1>
@@ -19,7 +30,7 @@
 
     <div class="form-group">
       <label for="numeroCarta">Numero Carta:</label>
-      <input type="text" id="numeroCarta" name="numeroCarta" pattern="\\d{16}" placeholder="1234 5678 9012 3456" required>
+      <input type="text" id="numeroCarta" name="numeroCarta"  placeholder="1234 5678 9012 3456" required>
     </div>
 
     <div class="form-group">
@@ -29,7 +40,7 @@
 
     <div class="form-group">
       <label for="cvv">CVV:</label>
-      <input type="text" id="cvv" name="cvv" pattern="\\d{3}" placeholder="123" required>
+      <input type="text" id="cvv" name="cvv"  placeholder="123" required>
     </div>
 
     <button type="submit" class="btn">Conferma Pagamento</button>

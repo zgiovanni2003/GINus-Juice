@@ -3,6 +3,7 @@ package Admin;
 
 import Model.Acquisto;
 import Model.AcquistoDAO;
+import Model.Utente;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,6 +16,7 @@ import java.util.List;
 public class StoricoAcquistiServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Utente utente = (Utente) request.getSession().getAttribute("utente");
         String email = request.getParameter("email");
         System.out.println(email);
 

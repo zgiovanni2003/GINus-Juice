@@ -37,7 +37,7 @@
         </div>
 
         <!-- Modulo di modifica -->
-        <form action="ModificaProdottoServlet" method="post" enctype="multipart/form-data" class="product-form">
+        <form action="ModificaProdottoServlet" method="post" enctype="multipart/form-data" class="product-form" onsubmit="return validateForm()">
             <input type="hidden" name="id" value="<%= prodotto.getId() %>">
 
             <!-- Campo nascosto per il nome dell'immagine esistente -->
@@ -50,7 +50,7 @@
 
             <div class="form-group">
                 <label for="prezzo">Prezzo (€):</label>
-                <input type="number" id="prezzo" name="prezzo" step="0.01" value="<%= prodotto.getPrezzo() %>" required>
+                <input type="number" id="prezzo" name="prezzo" step="0.01" min="0" value="<%= prodotto.getPrezzo() %>" required>
             </div>
 
             <div class="form-group">
@@ -75,5 +75,25 @@
         }
     %>
 </div>
+
+<script>
+    // Controllo lato client per prevenire quantità o prezzo negativi
+    function validateForm() {
+        const prezzo = document.getElementById('prezzo').value;
+        const quantita = document.getElementById('quantita').value;
+
+        if (prezzo < 0) {
+            alert("Il prezzo non può essere negativo.");
+            return false;
+        }
+
+        if (quantita < 0) {
+            alert("La quantità non può essere negativa.");
+            return false;
+        }
+
+        return true;
+    }
+</script>
 </body>
 </html>

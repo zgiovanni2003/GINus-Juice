@@ -5,16 +5,17 @@
     <meta charset="UTF-8">
     <title>Registrazione - GINusJOI</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/styleRegistrazione.css">
-    <script src="${pageContext.request.contextPath}/scripts/scriptRegistrazione.js" defer></script>
 </head>
 <body>
-<%@ include file="Fragment/herdershop.jsp" %>
-
 <div class="page-container">
     <div class="registration-container">
         <form id="registrationForm" action="RegistrazioneControl" method="post">
             <fieldset>
                 <legend>Registrazione</legend>
+                <% String errore = (String) request.getAttribute("errore"); %>
+                <% if (errore != null) { %>
+                <p style="color: red;"><%= errore %></p>
+                <% } %>
                 <label for="email">Email</label>
                 <input id="email" type="text" name="email" placeholder="Inserisci email" required>
                 <br>
@@ -33,7 +34,14 @@
     </div>
 </div>
 
-<%@ include file="Fragment/footer.jsp" %>
+<script>
+    // Verifica se l'email è già esistente
+    const emailEsistente = '<%= request.getAttribute("emailEsistente") %>';
 
+    if (emailEsistente === 'true') {
+        alert('Email già esistente. Verrai reindirizzato alla pagina di registrazione.');
+        window.location.href = '<%= request.getContextPath() %>/Registrazione.jsp';
+    }
+</script>
 </body>
 </html>

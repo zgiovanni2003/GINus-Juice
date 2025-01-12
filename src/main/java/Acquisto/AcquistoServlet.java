@@ -14,7 +14,6 @@ import java.util.Map;
 @WebServlet("/AcquistoServlet")
 public class AcquistoServlet extends HttpServlet {
 
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
@@ -25,7 +24,7 @@ public class AcquistoServlet extends HttpServlet {
             return;
         }
 
-        Utente utente=(Utente) session.getAttribute("utente");
+        Utente utente = (Utente) session.getAttribute("utente");
         String emailUtente = utente.getEmail();
         if (emailUtente == null || emailUtente.isEmpty()) {
             response.sendRedirect("Login.jsp");
@@ -33,20 +32,23 @@ public class AcquistoServlet extends HttpServlet {
         }
 
         ProdottoDAO prodottoDAO = new ProdottoDAO();
-        boolean aggiornaQuantitaSuccesso = true;
+        boolean quantitaInsufficiente = false;
+        String nomeProdottoFallito = "";
 
         for (Map.Entry<Prodotto, Integer> entry : carrello.getProdotti().entrySet()) {
             Prodotto prodotto = entry.getKey();
             int quantita = entry.getValue();
 
             if (!prodottoDAO.aggiornaQuantitaProdotto(prodotto.getId(), quantita)) {
-                aggiornaQuantitaSuccesso = false;
+                quantitaInsufficiente = true;
+                nomeProdottoFallito = prodotto.getNome();
                 break;
             }
         }
 
-        if (!aggiornaQuantitaSuccesso) {
-            response.sendRedirect("ErroreAcquisto.jsp");
+        if (quantitaInsufficiente) {
+            session.setAttribute("erroreCarrello", "Quantità non disponibile per il prodotto: " + nomeProdottoFallito);
+            response.sendRedirect("Carrello.jsp");
             return;
         }
 
@@ -66,5 +68,4 @@ public class AcquistoServlet extends HttpServlet {
             response.sendRedirect("ErroreAcquisto.jsp");
         }
     }
-
 }

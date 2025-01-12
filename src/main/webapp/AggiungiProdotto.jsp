@@ -11,10 +11,10 @@
 
 <%
     // Recupera l'utente dalla sessione
-    Utente u = (Utente) session.getAttribute("utente");
+    Utente ut = (Utente) session.getAttribute("utente");
 
     // Controlla se l'utente esiste e ha il ruolo richiesto
-    if (u == null || u.getRuolo() == null || !u.getRuolo().equals("magazziniere")) {
+    if (ut == null || ut.getRuolo() == null || !ut.getRuolo().equals("magazziniere")) {
         response.sendRedirect("AccessoNegato.jsp");
         return;
     }
@@ -22,7 +22,7 @@
 
 <div class="container">
     <h1>Aggiungi un Nuovo Prodotto</h1>
-    <form action="AggiungiProdottoServlet" method="post" enctype="multipart/form-data" class="form">
+    <form action="AggiungiProdottoServlet" method="post" enctype="multipart/form-data" class="form" onsubmit="return validateForm()">
         <div class="form-group">
             <label for="nome">Nome:</label>
             <input type="text" id="nome" name="nome" required>
@@ -35,7 +35,7 @@
 
         <div class="form-group">
             <label for="prezzo">Prezzo (€):</label>
-            <input type="number" step="0.01" id="prezzo" name="prezzo" required>
+            <input type="number" step="0.01" id="prezzo" name="prezzo" min="0" required>
         </div>
 
         <div class="form-group">
@@ -51,5 +51,25 @@
         <button type="submit" class="btn">Aggiungi Prodotto</button>
     </form>
 </div>
+
+<script>
+    // Controllo lato client per prevenire quantità o prezzo negativi
+    function validateForm() {
+        const prezzo = document.getElementById('prezzo').value;
+        const quantita = document.getElementById('quantita').value;
+
+        if (prezzo < 0) {
+            alert("Il prezzo non può essere negativo.");
+            return false;
+        }
+
+        if (quantita < 0) {
+            alert("La quantità non può essere negativa.");
+            return false;
+        }
+
+        return true;
+    }
+</script>
 </body>
 </html>

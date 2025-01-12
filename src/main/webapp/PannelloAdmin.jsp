@@ -11,15 +11,16 @@
     <link rel="stylesheet" href="styles/stylePannelloAdmin.css">
 </head>
 <body>
+<%@ include file="Fragment/hearder.jsp" %>
 <div class="container">
     <h1>Pannello di Controllo Amministratore</h1>
 
     <%
         // Recupera l'utente dalla sessione
-        Utente u = (Utente) session.getAttribute("utente");
+        Utente ut = (Utente) session.getAttribute("utente");
 
         // Controlla se l'utente esiste e ha il ruolo richiesto
-        if (u == null || u.getRuolo() == null || !u.getRuolo().equals("admin")) {
+        if (ut == null || ut.getRuolo() == null || !ut.getRuolo().equals("admin")) {
             response.sendRedirect("AccessoNegato.jsp");
             return;
         }

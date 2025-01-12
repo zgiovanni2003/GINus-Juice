@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static Model.ConnectionPool.getConnection;
+
 public class UtenteDAO {
 
     public Utente findUtenteByEmailAndPassword(String email, String password) throws SQLException {
@@ -15,7 +17,7 @@ public class UtenteDAO {
         ResultSet resultSet = null;
 
         try {
-            connection = ConnectionPool.getConnection();
+            connection = getConnection();
             String query = "SELECT * FROM Utente WHERE email = ? AND password_d = ?";
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, email);
@@ -48,7 +50,7 @@ public class UtenteDAO {
         stato=true;
         ruolo="utente";
         try {
-            conn = ConnectionPool.getConnection();
+            conn = getConnection();
             String query = "INSERT INTO Utente (email, nome, cognome, password_d, stato, ruolo) VALUES (?, ?, ?, ?, ?, ?)";
             ps = conn.prepareStatement(query);
             ps.setString(1, email);
@@ -77,7 +79,7 @@ public class UtenteDAO {
         PreparedStatement ps = null;
 
         try {
-            conn = ConnectionPool.getConnection();
+            conn = getConnection();
             String query = "DELETE FROM Utente WHERE email = ?";
             ps = conn.prepareStatement(query);
             ps.setString(1, email);
@@ -102,7 +104,7 @@ public class UtenteDAO {
         PreparedStatement preparedStatement = null;
 
         try {
-            connection = ConnectionPool.getConnection();
+            connection = getConnection();
             String query = "DELETE FROM Utente WHERE email = ?";
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, email);
@@ -127,7 +129,7 @@ public class UtenteDAO {
         PreparedStatement ps = null;
 
         try {
-            conn = ConnectionPool.getConnection();
+            conn = getConnection();
             String query = "UPDATE Utente SET ruolo = ? WHERE email = ?";
             ps = conn.prepareStatement(query);
             ps.setString(1, nuovoRuolo);
@@ -153,7 +155,7 @@ public class UtenteDAO {
         List<Utente> utenti = new ArrayList<>();
         String query = "SELECT * FROM Utente";
 
-        try (Connection conn = ConnectionPool.getConnection();
+        try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(query);
              ResultSet rs = ps.executeQuery()) {
 
@@ -173,6 +175,21 @@ public class UtenteDAO {
 
         return utenti;
     }
+
+    public boolean userExists(String email) {
+        String query = "SELECT 1 FROM Utente WHERE email = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, email);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                return resultSet.next(); // Ritorna true se l'email esiste
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 
 
 }
