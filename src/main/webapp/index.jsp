@@ -5,6 +5,7 @@
     <title>JSP - Hello World</title>
 </head>
 <body>
+<%@ include file="Fragment/hearder.jsp" %>
 <h1><%= "Hello World!" %>
 </h1>
 <br/>

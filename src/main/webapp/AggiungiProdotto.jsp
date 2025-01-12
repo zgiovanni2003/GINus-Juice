@@ -1,27 +1,55 @@
+<%@ page import="Model.Utente" %>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aggiungi Prodotto</title>
+    <link rel="stylesheet" href="styles/styleAggiungiProdotto.css">
 </head>
 <body>
-<h1>Aggiungi un Nuovo Prodotto</h1>
-<form action="AggiungiProdottoServlet" method="post" enctype="multipart/form-data">
-    <label for="nome">Nome:</label>
-    <input type="text" id="nome" name="nome" required><br><br>
 
-    <label for="descrizione">Descrizione:</label>
-    <textarea id="descrizione" name="descrizione" required></textarea><br><br>
+<%
+    // Recupera l'utente dalla sessione
+    Utente u = (Utente) session.getAttribute("utente");
 
-    <label for="prezzo">Prezzo:</label>
-    <input type="number" step="0.01" id="prezzo" name="prezzo" required><br><br>
+    // Controlla se l'utente esiste e ha il ruolo richiesto
+    if (u == null || u.getRuolo() == null || !u.getRuolo().equals("magazziniere")) {
+        response.sendRedirect("AccessoNegato.jsp");
+        return;
+    }
+%>
 
-    <label for="quantita">Quantità:</label>
-    <input type="number" id="quantita" name="quantita" min="0" required><br><br>
+<div class="container">
+    <h1>Aggiungi un Nuovo Prodotto</h1>
+    <form action="AggiungiProdottoServlet" method="post" enctype="multipart/form-data" class="form">
+        <div class="form-group">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required>
+        </div>
 
-    <label for="immagine">Immagine:</label>
-    <input type="file" id="immagine" name="immagine" accept="image/*" required><br><br>
+        <div class="form-group">
+            <label for="descrizione">Descrizione:</label>
+            <textarea id="descrizione" name="descrizione" required></textarea>
+        </div>
 
-    <button type="submit">Aggiungi Prodotto</button>
-</form>
+        <div class="form-group">
+            <label for="prezzo">Prezzo (€):</label>
+            <input type="number" step="0.01" id="prezzo" name="prezzo" required>
+        </div>
+
+        <div class="form-group">
+            <label for="quantita">Quantità:</label>
+            <input type="number" id="quantita" name="quantita" min="0" required>
+        </div>
+
+        <div class="form-group">
+            <label for="immagine">Immagine:</label>
+            <input type="file" id="immagine" name="immagine" accept="image/*" required>
+        </div>
+
+        <button type="submit" class="btn">Aggiungi Prodotto</button>
+    </form>
+</div>
 </body>
 </html>

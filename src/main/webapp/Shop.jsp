@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="styles/styleShop.css">
 </head>
 <body>
-
+<%@ include file="Fragment/hearder.jsp" %>
 <h1>Benvenuto nel nostro Shop!</h1>
 <h2>Lista dei Prodotti</h2>
 

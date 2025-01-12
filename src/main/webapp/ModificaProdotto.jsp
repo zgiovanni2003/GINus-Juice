@@ -1,5 +1,16 @@
 <%@ page import="Model.Prodotto" %>
+<%@ page import="Model.Utente" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    // Recupera l'utente dalla sessione
+    Utente u = (Utente) session.getAttribute("utente");
+
+    // Controlla se l'utente esiste e ha il ruolo richiesto
+    if (u == null || u.getRuolo() == null || !u.getRuolo().equals("magazziniere")) {
+        response.sendRedirect("AccessoNegato.jsp");
+        return;
+    }
+%>
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -23,7 +34,6 @@
         <!-- Visualizza immagine esistente -->
         <div class="product-image">
             <img src="images/<%= prodotto.getNome() %>.jpg?timestamp=<%= System.currentTimeMillis() %>" alt="<%= prodotto.getNome() %>">
-
         </div>
 
         <!-- Modulo di modifica -->
@@ -31,7 +41,7 @@
             <input type="hidden" name="id" value="<%= prodotto.getId() %>">
 
             <!-- Campo nascosto per il nome dell'immagine esistente -->
-            <input type="hidden" name="oldImageName" value="<%= prodotto.getNome()%>.jpg">
+            <input type="hidden" name="oldImageName" value="<%= prodotto.getNome() %>.jpg">
 
             <div class="form-group">
                 <label for="nome">Nome:</label>

@@ -1,0 +1,88 @@
+/* Stile generale per l'header */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333; /* Sfondo scuro */
+    padding: 10px 20px;
+    color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombra leggera */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Stile del logo */
+.logo h1 {
+    margin: 0;
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #ff4500; /* Colore arancione */
+}
+
+.logo h1 a {
+    text-decoration: none;
+    color: #ff4500; /* Colore arancione */
+}
+
+/* Navbar */
+.navbar {
+    list-style: none;
+    display: flex;
+    gap: 20px; /* Spaziatura tra i link */
+    margin: 0;
+    padding: 0;
+}
+
+.navbar li {
+    display: inline;
+}
+
+.navbar li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1em;
+    transition: color 0.3s ease;
+}
+
+.navbar li a:hover {
+    color: #ff4500; /* Colore arancione al passaggio del mouse */
+}
+
+/* Azioni utente */
+.user-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.user-actions .btn {
+    text-decoration: none;
+    color: #fff;
+    background-color: #4CAF50; /* Verde */
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.user-actions .btn:hover {
+    background-color: #45a049; /* Verde più scuro */
+    transform: scale(1.05); /* Leggero ingrandimento */
+}
+
+/* Responsività */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar {
+        flex-direction: column;
+        gap: 10px; /* Spaziatura più stretta tra i link */
+    }
+
+    .user-actions {
+        margin-top: 10px;
+    }
+}

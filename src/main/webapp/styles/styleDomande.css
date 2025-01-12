@@ -1,0 +1,139 @@
+/* Stile generale */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1c1c1c;
+    color: #fff;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Contenitore principale */
+.container {
+    max-width: 900px;
+    width: 100%;
+    background: #292929;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Titolo */
+h1 {
+    text-align: center;
+    color: #ff4500;
+    margin-bottom: 20px;
+}
+
+/* Tavola */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border: 1px solid #444;
+}
+
+th {
+    background-color: #444;
+    color: #fff;
+    font-size: 1em;
+}
+
+tr:nth-child(even) {
+    background-color: #333;
+}
+
+tr:nth-child(odd) {
+    background-color: #1c1c1c;
+}
+
+/* Form */
+.form-group {
+    margin-bottom: 10px;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #1c1c1c;
+    color: #fff;
+}
+
+textarea:focus {
+    border-color: #ff4500;
+    box-shadow: 0 0 8px rgba(255, 69, 0, 0.5);
+    outline: none;
+}
+
+/* Pulsanti */
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1em;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+/* Messaggio di avviso */
+.alert {
+    background-color: #ff4500;
+    color: #fff;
+    padding: 15px;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 1.2em;
+}
+
+/* Responsività */
+
+/* Tablet */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    .container {
+        padding: 15px;
+    }
+    th, td {
+        padding: 10px;
+        font-size: 0.9em;
+    }
+    button {
+        font-size: 0.9em;
+        padding: 8px 10px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    th, td {
+        font-size: 0.8em;
+        padding: 8px;
+    }
+    button {
+        font-size: 0.8em;
+        padding: 6px 8px;
+    }
+    textarea {
+        font-size: 0.9em;
+    }
+}
