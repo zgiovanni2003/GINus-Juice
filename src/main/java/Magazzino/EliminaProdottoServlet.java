@@ -1,6 +1,7 @@
 package Magazzino;
 
 import Model.ProdottoDAO;
+import Model.Prodotto;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -8,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/EliminaProdottoServlet")
 public class EliminaProdottoServlet extends HttpServlet {
@@ -30,9 +32,15 @@ public class EliminaProdottoServlet extends HttpServlet {
             String idParam = request.getParameter("id");
             int idProdotto = Integer.parseInt(idParam);
 
+            // Elimina il prodotto dal database
             boolean eliminato = prodottoDAO.deleteProdottoById(idProdotto);
 
             if (eliminato) {
+                // Aggiorna la lista dei prodotti nel contesto dell'applicazione
+                List<Prodotto> prodottiAggiornati = prodottoDAO.getAllProdotti();
+                getServletContext().setAttribute("prodotti", prodottiAggiornati);
+
+                // Reindirizza alla pagina del magazzino
                 response.sendRedirect("Magazzino.jsp");
             } else {
                 response.sendError(HttpServletResponse.SC_NOT_FOUND, "Prodotto non trovato.");
