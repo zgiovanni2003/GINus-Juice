@@ -16,15 +16,22 @@ import java.util.List;
 @WebServlet("/VisualizzaDettagliServlet")
 public class VisualizzaDettagliServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    private RecensioneDAO recensioneDAO = new RecensioneDAO();
+    private ProdottoDAO prodottoDAO = new ProdottoDAO();
+
+    // Setter per iniettare le DAO (utile per i test)
+    public void setRecensioneDAO(RecensioneDAO recensioneDAO) {
+        this.recensioneDAO = recensioneDAO;
+    }
+
+    public void setProdottoDAO(ProdottoDAO prodottoDAO) {
+        this.prodottoDAO = prodottoDAO;
+    }
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Recupero dell'ID del prodotto dalla richiesta
         int idProdotto = Integer.parseInt(request.getParameter("id"));
-
-        // DAO per recensioni e prodotti
-        RecensioneDAO recensioneDAO = new RecensioneDAO();
-        ProdottoDAO prodottoDAO = new ProdottoDAO();
 
         // Recupera il prodotto dal database
         Prodotto prodotto = prodottoDAO.getProdottoById(idProdotto);

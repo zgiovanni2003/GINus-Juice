@@ -60,4 +60,9 @@ public class Recensione {
                 ", dataRecensione=" + dataRecensione +
                 '}';
     }
+    public Recensione() {
+        // Costruttore vuoto richiesto da alcune librerie e framework
+    }
+
+
 }

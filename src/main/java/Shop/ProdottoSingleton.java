@@ -51,4 +51,9 @@ public class ProdottoSingleton {
     public List<Prodotto> getProdotti() {
         return prodotti;
     }
+   //****************************************************************************++
+    public static synchronized void setInstance(ProdottoSingleton customInstance) {
+        instance = customInstance;
+    }
+    //**********************************************************************
 }

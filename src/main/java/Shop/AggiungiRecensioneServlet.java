@@ -16,6 +16,11 @@ import java.util.List;
 public class AggiungiRecensioneServlet extends HttpServlet {
     private static final List<String> PAROLE_SCURRILI = Arrays.asList("puttana", "troia", "zoccola");
 
+
+    protected RecensioneDAO createRecensioneDAO() {
+        return new RecensioneDAO();
+    }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int idProdotto = Integer.parseInt(request.getParameter("idProdotto"));

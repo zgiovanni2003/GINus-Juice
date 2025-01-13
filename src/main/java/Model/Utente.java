@@ -95,6 +95,28 @@ public class Utente {
     public int hashCode() {
         return Objects.hash(email, nome, cognome, password, stato, ruolo);
     }
+
+    @Override
+    public String toString() {
+        return "Utente{" +
+                "email='" + email + '\'' +
+                ", nome='" + nome + '\'' +
+                ", cognome='" + cognome + '\'' +
+                ", password='" + password + '\'' +
+                ", stato=" + stato +
+                ", ruolo='" + ruolo + '\'' +
+                '}';
+    }
+    public Utente(String email, String nome, String cognome) {
+        this.email = email;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.password = ""; // Default
+        this.stato = true;  // Default
+        this.ruolo = "utente"; // Default
+    }
+
+
 }
 
 

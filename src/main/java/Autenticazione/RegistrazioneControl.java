@@ -23,6 +23,13 @@ public class RegistrazioneControl extends HttpServlet {
 
 
 
+        // Validazione dell'email
+        if (email == null || !email.matches("^[\\w.%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$")) {
+            request.setAttribute("errore", "Errore nella registrazione. Verifica i dati inseriti.");
+            request.getRequestDispatcher("/Registrazione.jsp").forward(request, response);
+            return;
+        }
+
         // Creazione di un oggetto UtenteDAO per la gestione del database
         UtenteDAO utenteDAO = new UtenteDAO();
         boolean isRegistered = false;
