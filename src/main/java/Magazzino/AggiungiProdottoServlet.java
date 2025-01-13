@@ -14,6 +14,7 @@ import jakarta.servlet.http.Part;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/AggiungiProdottoServlet")
 @MultipartConfig
@@ -68,12 +69,7 @@ public class AggiungiProdottoServlet extends HttpServlet {
             String nome = request.getParameter("nome");
             String descrizione = request.getParameter("descrizione");
             double prezzo = Double.parseDouble(request.getParameter("prezzo"));
-            int quantita = Integer.parseInt(request.getParameter("quantita")); // Recupero quantità
-
-            System.out.println("Nome prodotto: " + nome);
-            System.out.println("Descrizione prodotto: " + descrizione);
-            System.out.println("Prezzo prodotto: " + prezzo);
-            System.out.println("Quantità prodotto: " + quantita);
+            int quantita = Integer.parseInt(request.getParameter("quantita"));
 
             // Percorso della cartella 'images'
             String uploadDir = getServletContext().getRealPath("/") + "../../src/main/webapp/images/";
@@ -91,31 +87,28 @@ public class AggiungiProdottoServlet extends HttpServlet {
 
             // Scrittura del file nella cartella 'images'
             filePart.write(filePath);
-            System.out.println("Immagine salvata con successo.");
 
             // Salvataggio del prodotto nel database
             Prodotto prodotto = new Prodotto();
             prodotto.setNome(nome);
             prodotto.setDescrizione(descrizione);
             prodotto.setPrezzo(prezzo);
-            prodotto.setQuantita(quantita); // Imposta quantità
+            prodotto.setQuantita(quantita);
 
             ProdottoDAO prodottoDAO = new ProdottoDAO();
             prodottoDAO.aggiungiProdotto(prodotto);
-            System.out.println("Prodotto salvato nel database.");
 
-            // Aggiorna la lista dei prodotti nel contesto applicativo
-            ServletContext context = request.getServletContext();
-            ProdottoSingleton singleton = ProdottoSingleton.getInstance();
-            singleton.getProdotti().add(prodotto);
-            singleton.salvaProdottiNelContext(context);
-            System.out.println("Lista dei prodotti aggiornata nel contesto applicativo.");
+            // Aggiorna la lista dei prodotti nel contesto dell'applicazione
+            ServletContext context = getServletContext();
+            List<Prodotto> prodottiAggiornati = prodottoDAO.getAllProdotti();
+            context.setAttribute("prodotti", prodottiAggiornati);
 
             // Redirect alla pagina di successo
             response.sendRedirect("Successo.jsp");
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Errore durante l'aggiunta del prodotto: " + e.getMessage());
+            response.sendRedirect("ErroreInserimento.jsp");
         }
     }
+
 }
