@@ -18,7 +18,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 
-/*
+
 @WebServlet("/ModificaProdottoServlet")
 @MultipartConfig
 public class ModificaProdottoServlet extends HttpServlet {
@@ -100,8 +100,10 @@ public class ModificaProdottoServlet extends HttpServlet {
         }
     }
 }
-*/
 
+
+
+/*
 @WebServlet("/ModificaProdottoServlet")
 @MultipartConfig
 public class ModificaProdottoServlet extends HttpServlet {
@@ -214,3 +216,4 @@ public class ModificaProdottoServlet extends HttpServlet {
         }
     }
 }
+*/
