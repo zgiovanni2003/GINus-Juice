@@ -34,7 +34,7 @@
         <!-- Mostra nome e prezzo del prodotto -->
         <div class="product-details">
             <strong class="product-name"><%= prodotto.getNome() %></strong><br>
-            <span class="product-price">Prezzo: <%= prodotto.getPrezzo() %> €</span><br>
+            <span class="product-price">Prezzo: <%= prodotto.getPrezzo() %> </span><br>
         </div>
 
         <!-- Bottone per visualizzare i dettagli -->

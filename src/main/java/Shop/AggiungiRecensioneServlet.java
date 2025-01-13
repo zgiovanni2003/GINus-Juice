@@ -26,6 +26,10 @@ public class AggiungiRecensioneServlet extends HttpServlet {
         int idProdotto = Integer.parseInt(request.getParameter("idProdotto"));
         String corpoRecensione = request.getParameter("corpoRecensione");
         Utente u=(Utente) request.getSession().getAttribute("utente");
+        if (u == null) {
+            response.sendRedirect("Login.jsp");
+            return;
+        }
         String emailUtente = u.getEmail();
 
         // Controllo per parole scurrili

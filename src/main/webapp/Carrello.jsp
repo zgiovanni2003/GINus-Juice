@@ -32,7 +32,7 @@
 <%
     if (carrello == null || carrello.getProdotti().isEmpty()) {
 %>
-<p class="empty-cart-message">Il tuo carrello è vuoto.</p>
+<p class="empty-cart-message">Il tuo carrello e' vuoto.</p>
 <a href="Shop.jsp" class="return-link">Torna allo Shop</a>
 <%
 } else {
@@ -52,7 +52,7 @@
     </div>
     <p><strong>Prodotto:</strong> <%= prodotto.getNome() %></p>
     <p><strong>Prezzo unitario:</strong> <%= prodotto.getPrezzo() %></p>
-    <p><strong>Quantità:</strong> <%= quantita %></p>
+    <p><strong>Quantita:</strong> <%= quantita %></p>
     <p><strong>Prezzo totale:</strong> <%= prezzoTotale %></p>
     <div class="action-buttons">
         <form action="CarrelloServlet" method="post" class="inline-form">

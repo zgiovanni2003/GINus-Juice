@@ -48,7 +48,7 @@
                      alt="<%= prodotto.getNome() %>" class="product-image">
             </td>
             <td><%= prodotto.getNome() %></td>
-            <td>€<%= prodotto.getPrezzo() %></td>
+            <td><%= prodotto.getPrezzo() %></td>
             <td>
                 <!-- Form per modifica -->
                 <form action="VisualizzaModificaProdottoServlet" method="post" class="inline-form">
