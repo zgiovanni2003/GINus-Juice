@@ -34,12 +34,12 @@
         </div>
 
         <div class="form-group">
-            <label for="prezzo">Prezzo (€):</label>
+            <label for="prezzo">Prezzo :</label>
             <input type="number" step="0.01" id="prezzo" name="prezzo" min="0" required>
         </div>
 
         <div class="form-group">
-            <label for="quantita">Quantità:</label>
+            <label for="quantita">Quantita':</label>
             <input type="number" id="quantita" name="quantita" min="0" required>
         </div>
 

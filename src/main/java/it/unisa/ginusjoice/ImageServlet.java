@@ -18,15 +18,15 @@ public class ImageServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Recupera il nome del file dall'URL
         String imageName = request.getPathInfo() != null ? request.getPathInfo().substring(1) : null;
-        System.out.println("Richiesta immagine: " + imageName);
+       // System.out.println("Richiesta immagine: " + imageName);
 
         // Percorso statico alla directory delle immagini in webapp
         String imagePath = getServletContext().getRealPath("/") + "../../src/main/webapp/images/";
-        System.out.println("Percorso assoluto directory immagini (webapp): " + imagePath);
+        //System.out.println("Percorso assoluto directory immagini (webapp): " + imagePath);
 
         if (imageName == null || imageName.isEmpty()) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Nessun nome immagine fornito.");
-            System.out.println("Errore: Nessun nome immagine fornito.");
+            //System.out.println("Errore: Nessun nome immagine fornito.");
             return;
         }
 
@@ -37,7 +37,7 @@ public class ImageServlet extends HttpServlet {
         // Verifica se il file esiste
         if (!imageFile.exists()) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND, "Immagine non trovata.");
-            System.out.println("Errore: Immagine non trovata nel percorso " + imageFile.getAbsolutePath());
+           // System.out.println("Errore: Immagine non trovata nel percorso " + imageFile.getAbsolutePath());
             return;
         }
 
@@ -53,7 +53,7 @@ public class ImageServlet extends HttpServlet {
             while ((bytesRead = inputStream.read(buffer)) != -1) {
                 outputStream.write(buffer, 0, bytesRead);
             }
-            System.out.println("Immagine inviata correttamente.");
+            //System.out.println("Immagine inviata correttamente.");
         }
     }
 }

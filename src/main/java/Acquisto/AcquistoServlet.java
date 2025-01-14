@@ -19,55 +19,55 @@ public class AcquistoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Carrello carrello = (Carrello) session.getAttribute("carrello");
+        System.out.println("boh");
 
         if (carrello == null || carrello.getProdotti().isEmpty()) {
             response.sendRedirect("Carrello.jsp");
             return;
         }
 
-        Utente utente=(Utente) session.getAttribute("utente");
+        Utente utente = (Utente) session.getAttribute("utente");
         if (utente == null) {
-            response.sendRedirect("Login.jsp");
-            return;
-        }
-        String emailUtente = utente.getEmail();
-        if (emailUtente == null || emailUtente.isEmpty()) {
             response.sendRedirect("Login.jsp");
             return;
         }
 
         ProdottoDAO prodottoDAO = new ProdottoDAO();
-        boolean aggiornaQuantitaSuccesso = true;
+        boolean erroreQuantita = false;
 
         for (Map.Entry<Prodotto, Integer> entry : carrello.getProdotti().entrySet()) {
             Prodotto prodotto = entry.getKey();
-            int quantita = entry.getValue();
+            int quantitaRichiesta = entry.getValue();
+            System.out.println("ciao io sto qui");
 
-            if (!prodottoDAO.aggiornaQuantitaProdotto(prodotto.getId(), quantita)) {
-                aggiornaQuantitaSuccesso = false;
-                break;
+            // Controlla se la quantità richiesta supera quella disponibile
+            Prodotto p= prodottoDAO.getProdottoById(prodotto.getId());
+            int quantitaDisponibile=p.getQuantita();
+            System.out.println(quantitaDisponibile);
+            if (quantitaRichiesta > quantitaDisponibile) {
+                erroreQuantita = true;
+                session.setAttribute("erroreQuantita", "La quantità richiesta per il prodotto \""
+                        + prodotto.getNome() + "\" supera la disponibilità attuale.");
+                response.sendRedirect("Carrello.jsp");
+                return;
             }
         }
 
-        if (!aggiornaQuantitaSuccesso) {
-            response.sendRedirect("ErroreAcquisto.jsp");
-            return;
-        }
+        if (!erroreQuantita) {
+            // Procedi con l'acquisto
+            String prodottiComprati = carrello.getProdotti().toString();
+            double totale = carrello.getProdotti().entrySet().stream()
+                    .mapToDouble(entry -> entry.getKey().getPrezzo() * entry.getValue()).sum();
 
-        // Salva l'acquisto
-        String prodottiComprati = carrello.getProdotti().toString();
-        double totale = carrello.getProdotti().entrySet().stream()
-                .mapToDouble(entry -> entry.getKey().getPrezzo() * entry.getValue()).sum();
+            Acquisto acquisto = new Acquisto(null, totale, prodottiComprati, utente.getEmail());
+            AcquistoDAO acquistoDAO = new AcquistoDAO();
 
-        Acquisto acquisto = new Acquisto(null, totale, prodottiComprati, emailUtente);
-        AcquistoDAO acquistoDAO = new AcquistoDAO();
-        boolean successo = acquistoDAO.salvaAcquisto(acquisto);
-
-        if (successo) {
-            session.removeAttribute("carrello");
-            response.sendRedirect("ConfermaAcquisto.jsp");
-        } else {
-            response.sendRedirect("ErroreAcquisto.jsp");
+            if (acquistoDAO.salvaAcquisto(acquisto)) {
+                session.removeAttribute("carrello");
+                response.sendRedirect("ConfermaAcquisto.jsp");
+            } else {
+                response.sendRedirect("Carrello.jsp.jsp");
+            }
         }
     }
 

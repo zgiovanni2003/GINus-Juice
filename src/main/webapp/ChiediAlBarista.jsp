@@ -30,7 +30,7 @@
 
 <div class="user-actions">
   <% if (ru == null) { %>
-  <h3 class="login-message">Effettua il login per utilizzare questa funzionalità</h3>
+  <h3 class="login-message">Effettua il login per utilizzare questa funzionalita'</h3>
   <% } else if ("utente".equals(ru)) { %>
   <a href="ScriviDomanda.jsp" class="btn btn-success">Scrivi</a>
   <a href="VisualizzaRisposteServlet" class="btn btn-info">Risposte</a>

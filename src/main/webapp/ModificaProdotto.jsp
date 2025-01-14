@@ -59,7 +59,7 @@
             </div>
 
             <div class="form-group">
-                <label for="quantita">Quantità:</label>
+                <label for="quantita">Quantita:</label>
                 <input type="number" id="quantita" name="quantita" min="0" value="<%= prodotto.getQuantita() %>" required>
             </div>
 

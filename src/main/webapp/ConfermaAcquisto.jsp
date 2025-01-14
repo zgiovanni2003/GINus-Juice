@@ -47,7 +47,7 @@
 </head>
 <body>
 <h1>Grazie per il tuo acquisto!</h1>
-<p>Il tuo ordine è stato completato con successo.</p>
+<p>Il tuo ordine e' stato completato con successo.</p>
 <a href="Shop.jsp">Torna allo Shop</a>
 </body>
 </html>
