@@ -41,20 +41,32 @@ public class AcquistoServlet extends HttpServlet {
             System.out.println("ciao io sto qui");
 
             // Controlla se la quantità richiesta supera quella disponibile
-            Prodotto p= prodottoDAO.getProdottoById(prodotto.getId());
-            int quantitaDisponibile=p.getQuantita();
+            Prodotto p = prodottoDAO.getProdottoById(prodotto.getId());
+            int quantitaDisponibile = p.getQuantita();
             System.out.println(quantitaDisponibile);
             if (quantitaRichiesta > quantitaDisponibile) {
                 erroreQuantita = true;
-                session.setAttribute("erroreQuantita", "La quantità richiesta per il prodotto \""
-                        + prodotto.getNome() + "\" supera la disponibilità attuale.");
+                session.setAttribute("erroreQuantita", "La quantità richiesta per il prodotto \"" + prodotto.getNome() + "\" supera la disponibilità attuale.");
                 response.sendRedirect("Carrello.jsp");
                 return;
             }
         }
 
         if (!erroreQuantita) {
-            // Procedi con l'acquisto
+            // Procedi con l'acquisto e scala la quantità
+            for (Map.Entry<Prodotto, Integer> entry : carrello.getProdotti().entrySet()) {
+                Prodotto prodotto = entry.getKey();
+                int quantitaRichiesta = entry.getValue();
+
+                boolean aggiornamentoSuccesso = prodottoDAO.aggiornaQuantitaProdotto(prodotto.getId(), quantitaRichiesta);
+                if (!aggiornamentoSuccesso) {
+                    session.setAttribute("erroreQuantita", "Errore nell'aggiornamento della quantità per il prodotto \"" + prodotto.getNome() + "\".");
+                    response.sendRedirect("Carrello.jsp");
+                    return;
+                }
+            }
+
+            // Salva l'acquisto
             String prodottiComprati = carrello.getProdotti().toString();
             double totale = carrello.getProdotti().entrySet().stream()
                     .mapToDouble(entry -> entry.getKey().getPrezzo() * entry.getValue()).sum();
@@ -66,7 +78,7 @@ public class AcquistoServlet extends HttpServlet {
                 session.removeAttribute("carrello");
                 response.sendRedirect("ConfermaAcquisto.jsp");
             } else {
-                response.sendRedirect("Carrello.jsp.jsp");
+                response.sendRedirect("Carrello.jsp");
             }
         }
     }

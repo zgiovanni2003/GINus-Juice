@@ -104,7 +104,7 @@ public class AggiungiProdottoServlet extends HttpServlet {
             context.setAttribute("prodotti", prodottiAggiornati);
 
             // Redirect alla pagina di successo
-            response.sendRedirect("Successo.jsp");
+            response.sendRedirect("Magazzino.jsp");
         } catch (Exception e) {
             e.printStackTrace();
             response.sendRedirect("ErroreInserimento.jsp");
